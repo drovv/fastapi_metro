@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маршруты метро</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="hero__content">
+                <p class="hero__eyebrow">FastAPI</p>
+                <h1>Кратчайший путь по московскому метро</h1>
+                <p class="hero__text">
+                    Простая учебная страница: выбираете две станции, приложение считает маршрут,
+                    время в пути и показывает, где нужно сделать переход.
+                </p>
+            </div>
+
+            <div class="hero__card">
+                <div class="mini-grid">
+                    <div>
+                        <span>Скорость поезда</span>
+                        <strong>60 км/ч</strong>
+                    </div>
+                    <div>
+                        <span>Переход</span>
+                        <strong>10 мин</strong>
+                    </div>
+                    <div>
+                        <span>МЦК / МЦД</span>
+                        <strong>15 мин</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <form id="route-form" class="route-form">
+                <div class="field">
+                    <label for="from-station">Откуда</label>
+                    <input id="from-station" name="from_station" list="stations-list" placeholder="Например, Киевская" autocomplete="off" required>
+                </div>
+
+                <button type="button" id="swap-button" class="swap-button" title="Поменять станции местами">⇄</button>
+
+                <div class="field">
+                    <label for="to-station">Куда</label>
+                    <input id="to-station" name="to_station" list="stations-list" placeholder="Например, Белорусская" autocomplete="off" required>
+                </div>
+
+                <button type="submit" class="submit-button">Найти маршрут</button>
+            </form>
+
+            <datalist id="stations-list"></datalist>
+
+            <div class="examples">
+                <span>Быстрые примеры:</span>
+                <button class="example-button" data-from="Киевская" data-to="Белорусская" type="button">Киевская → Белорусская</button>
+                <button class="example-button" data-from="Курская" data-to="Парк культуры" type="button">Курская → Парк культуры</button>
+                <button class="example-button" data-from="ВДНХ" data-to="Третьяковская" type="button">ВДНХ → Третьяковская</button>
+            </div>
+        </section>
+
+        <section id="status" class="status status--neutral">
+            Загрузка списка станций...
+        </section>
+
+        <section id="result" class="result hidden">
+            <div class="summary" id="summary"></div>
+            <div class="route-list" id="route-list"></div>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
