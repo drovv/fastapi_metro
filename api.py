@@ -9,6 +9,7 @@ from metro_service import (
     find_route,
     search_stations,
 )
+from schemas import RootResponse, RouteResponse, StationsResponse
 from settings import (
     APP_DESCRIPTION,
     APP_TITLE,
@@ -33,8 +34,8 @@ def read_ui() -> FileResponse:
     return FileResponse(TEMPLATES_DIR / "index.html")
 
 
-@app.get("/")
-def read_root() -> dict:
+@app.get("/", response_model=RootResponse)
+def read_root() -> RootResponse:
     return {
         "message": "FastAPI приложение для поиска кратчайшего пути по московскому метро",
         "metro_api_url": METRO_API_URL,
@@ -54,21 +55,21 @@ def read_root() -> dict:
     }
 
 
-@app.get("/stations")
+@app.get("/stations", response_model=StationsResponse)
 def list_stations(
     q: str | None = Query(default=None, description="Часть названия станции")
-) -> dict:
+) -> StationsResponse:
     try:
         return search_stations(q)
     except MetroDataLoadError as error:
         raise HTTPException(status_code=503, detail=str(error)) from error
 
 
-@app.get("/route")
+@app.get("/route", response_model=RouteResponse)
 def get_route(
     from_station: str = Query(..., description="Начальная станция"),
     to_station: str = Query(..., description="Конечная станция"),
-) -> dict:
+) -> RouteResponse:
     try:
         return find_route(from_station, to_station)
     except StationNotFoundError as error:
