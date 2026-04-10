@@ -9,6 +9,7 @@
 - `api.py` - FastAPI и HTTP-эндпоинты;
 - `metro_service.py` - построение графа метро и алгоритм Дейкстры;
 - `settings.py` - константы и пути к файлам;
+- `schemas.py` - Pydantic-модели ответов API;
 - `templates/index.html` - страница интерфейса;
 - `static/app.js` и `static/styles.css` - логика и стили фронта.
 
